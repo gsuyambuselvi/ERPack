@@ -1,0 +1,437 @@
+﻿@using ERPack.Web.Startup
+@using ERPack.Web.Models.Customers
+@using Abp.Authorization.Users
+@model AddEditCustomerModel
+@{
+    ViewBag.Title = L("CreateCustomer");
+    ViewBag.CurrentPageName = PageNames.CreateCustomer;
+    var Count = 0;
+}
+
+@* @if(TempData["Successmsg"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Success !</strong> @TempData["Successmsg"]
+    </div>
+    TempData["Successmsg"] = null;
+}
+<br /> *@
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>@L("CreateCustomer")</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <form name="customerCreateForm" id="customerCreateForm" role="form" class="form-horizontal" enctype="multipart/form-data">
+                        <div class="card-body">
+                            <input id="Id" type="hidden" Name="Id" class="form-control" value="@Model.Id">
+                            <input id="ismaterial" type="hidden" Name="ismaterial" class="form-control" value="@(Model.CustomerMaterials != null && Model.CustomerMaterials.Count > 0 ? true : false)">
+                            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group required">
+                                        <label>@L("Customer") Id</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="CustomerId" id="CustomerId" value="@Model.CustomerId" readonly required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label>@L("Name")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="Name" id="Name" value="@Model.Name" required maxlength="50">
+                                            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label>@L("EmailAddress")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                            </div>
+                                            <input type="email" class="form-control" name="EmailAddress" value="@Model.EmailAddress" required maxlength="100">
+                                            <span asp-validation-for="@Model.EmailAddress" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("Mobile")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-mobile"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="Mobile" value="@Model.Mobile" id="Mobile" maxlength="15" onkeypress="return blockSpecialChar(event)">
+                                            <span asp-validation-for="@Model.Mobile" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("Designation")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="Designation" value="@Model.Designation" id="Designation" onkeypress="return blockSpecialChar(event)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("ContactPerson")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-address-book"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="ContactPerson" value="@Model.ContactPerson" id="ContactPerson">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("ContactNo")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="ContactNo" value="@Model.ContactNo" id="ContactNo">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("PAN")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="PAN" value="@Model.PAN" id="PAN" maxlength="10" pattern="^[A-Z]{5}[0-9]{4}[A-Z]$" title="Invalid PAN Number. Format: ABCDE1234F">
+
+                                            <span asp-validation-for="@Model.PAN" class="text-danger" id="panError"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("GSTNo")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-file-invoice-dollar"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="GSTNo" value="@Model.GSTNo" id="GSTNo" maxlength="15">
+                                            <span asp-validation-for="@Model.GSTNo" class="text-danger" id="gstError"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("Category")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-file-invoice-dollar"></i></span>
+                                            </div>
+                                            <select class="form-control" id="CategoryId" name="CategoryId">
+                                                <option value="" selected>Select @L("Category")</option>
+                                                @foreach (var v in Model.Categories)
+                                                {
+                                                    if (v.Id == Model.CategoryId)
+                                                    {
+                                                        <option value="@v.Id" selected>@v.CategoryName</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@v.Id">@v.CategoryName</option>
+                                                    }
+                                                }
+                                            </select>
+                                            <span class="input-group-append">
+                                                <a href="javascript:;" data-toggle="modal" data-target="#CategoryCreateModal" class="btn btn-primary"><i class="fa fa-plus-square"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>@L("Address")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" value="@Model.Address1" name="Address1" id="Address1" maxlength="255" onkeypress="return blockSpecialChar(event)">
+                                            <span asp-validation-for="@Model.Address1" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("Address")2</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="Address2" value="@Model.Address2" id="Address2" maxlength="255" onkeypress="return blockSpecialChar(event)">
+                                            <span asp-validation-for="@Model.Address2" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("City")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-city"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="City" value="@Model.City" id="City" onkeypress="return blockSpecialChar(event)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("State")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                            </div>
+                                            @* <input type="text" class="form-control" name="State" value="@Model.State" id="State" onkeypress="return blockSpecialChar(event)"> *@
+                                            @Html.DropDownListFor(m => m.State,
+                                                     new SelectList(Model.States, "StateName", "StateName", Model.State),
+                                                     "Select State",
+                                                     new { @class = "form-control" })
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("Pincode")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-map-pin"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="Pincode" value="@Model.PinCode" id="Pincode" onkeypress="return blockSpecialChar(event)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("Country")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-flag"></i></span>
+                                            </div>
+                                            @* <input type="text" class="form-control" name="Country" value="@Model.Country" id="Country" onkeypress="return blockSpecialChar(event)"> *@
+                                            @Html.DropDownListFor(m => m.Country, new SelectList(Model.Countries, "CountryName", "CountryName", Model.Country), "Select Country", new { @class = "form-control" })
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("Website")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-globe"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="Website" value="@Model.Website" id="Website">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ImageDoc">Upload Image</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="ImageDoc" id="ImageDoc">
+                                                <label class="custom-file-label" for="Image">Choose File</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("Industry")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-file-invoice-dollar"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="Industry" value="" id="Industry">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mt-2">
+                                        <label class="col-form-label" for="chkAddPrice">Add Price for Customer</label>
+                                        <input type="checkbox" name="IsActive" value="true" id="chkAddPrice" onclick="addPrice()" checked="@(Model.CustomerMaterials != null && Model.CustomerMaterials.Count > 0 ? true : false)" />
+                                    </div>
+                                </div>
+                            </div>
+                            @if (Model.CustomerMaterials != null && Model.CustomerMaterials.Count > 0)
+                            {
+                                <div class="row" id="divAddPrice">
+                                    <div class="col-6">
+                                        <table id="tblCustomerPrice" class="table table-striped mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Material</th>
+                                                    <th>Unit</th>
+                                                    <th>Selling Price</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var materialitem in Model.CustomerMaterials)
+                                                {
+                                                    <tr id="customerMaterialPriceRow@(Count > 0 ? Count:"")">
+                                                        <td class="col-sm-4">
+                                                            <select class="form-control" id="MaterialId" name="CustomerMaterials[@Count].MaterialId">
+                                                                <option value="" selected>Select @L("Material")</option>
+                                                                @if (Model.Materials != null)
+                                                                {
+                                                                    @foreach (var m in Model.Materials)
+                                                                    {
+                                                                        if (m.Id == materialitem.MaterialId)
+                                                                        {
+                                                                            <option value="@m.Id" selected>@m.DisplayName</option>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@m.Id">@m.DisplayName</option>
+                                                                        }
+                                                                    }
+                                                                }
+                                                            </select>
+                                                        </td>
+                                                        <td class="col-sm-3">
+                                                            <select class="form-control" id="UnitId" name="CustomerMaterials[@Count].UnitId">
+                                                                <option value="" selected>Select @L("Unit")</option>
+                                                                @if (Model.Units != null)
+                                                                {
+                                                                    @foreach (var v in Model.Units)
+                                                                    {
+                                                                        if (v.Id == materialitem.UnitId)
+                                                                        {
+                                                                            <option value="@v.Id" selected>@v.UnitName</option>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@v.Id">@v.UnitName</option>
+                                                                        }
+
+                                                                    }
+                                                                }
+                                                            </select>
+                                                        </td>
+                                                        <td class="col-sm-3">
+                                                            <input type="number" min="0" id="Price" value="@materialitem.Price" name="CustomerMaterials[@Count].Price" class="form-control" />
+                                                        </td>
+                                                        <td class="col-sm-2 text-center">
+                                                            <a href="javascript:void(0)"><i class="fas fa-trash" @(Count == 0 ? "hidden" : "")></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    Count++;
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="5" style="text-align: left;">
+                                                        <input type="button" class="btn btn-primary " id="addrow" value="Add Row" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row" id="divAddPrice" style="display:none">
+                                    <div class="col-6">
+                                        <table id="tblCustomerPrice" class="table table-striped mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Material</th>
+                                                    <th>Unit</th>
+                                                    <th>Selling Price</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr id="customerMaterialPriceRow">
+                                                    <td class="col-sm-4">
+                                                        <select class="form-control" id="MaterialId" name="">
+                                                            <option value="" selected>Select @L("Material")</option>
+                                                            @if (Model.Materials != null)
+                                                            {
+                                                                @foreach (var v in Model.Materials)
+                                                                {
+                                                                    <option value="@v.Id">@v.DisplayName</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                    <td class="col-sm-3">
+                                                        <select class="form-control" id="UnitId" name="">
+                                                            <option value="" selected>Select @L("Unit")</option>
+                                                            @if (Model.Units != null)
+                                                            {
+                                                                @foreach (var v in Model.Units)
+                                                                {
+                                                                    <option value="@v.Id">@v.UnitName</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                    <td class="col-sm-3">
+                                                        <input type="number" min="0" id="Price" name="" class="form-control" />
+                                                    </td>
+                                                    <td class="col-sm-2 text-center">
+                                                        <a href="javascript:void(0)"><i class="fas fa-trash" hidden></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="5" style="text-align: left;">
+                                                        <input type="button" class="btn btn-primary " id="addrow" value="Add Row" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary float-right save-button">@L("Save")</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@await Html.PartialAsync("~/Views/Shared/Modals/_CreateCategoryModal.cshtml", Model)
+
+@section scripts
+{
+    <script src="~/view-resources/Views/Customers/CreateCustomer.js" asp-append-version="true"></script>
+}
+
+<script src="~/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#Name').on('keypress', function (e) {
+            if (e.which == 32) {
+                console.log('Space Detected');
+                return false;
+            }
+        });
+    });
+
+    function blockSpecialChar(e) {
+        var k;
+        document.all ? k = e.keyCode : k = e.which;
+        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+    }
+
+    $('#ImageDoc').on('change', function (e) {
+        //get the file name
+        var fileName = $(this).val();
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-label').html(e.target.files[0].name);
+    })
+</script>

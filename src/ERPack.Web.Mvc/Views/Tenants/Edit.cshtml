@@ -1,0 +1,114 @@
+﻿@using ERPack.Web.Startup
+@using ERPack.MultiTenancy.Dto
+@using ERPack.Web.Models.Common.Modals
+@model TenantDto
+@{
+    ViewBag.Title = L("Edit");
+    ViewBag.CurrentPageName = PageNames.EditTenant;
+}
+@section scripts
+    {
+    <environment names="Development">
+        <script src="~/view-resources/Views/Tenants/EditTenant.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="~/view-resources/Views/Tenants/EditTenant.min.js" asp-append-version="true"></script>
+    </environment>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>@L("Edit")</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <form name="TenantEditForm" id="tenantEditForm" role="form" class="form-horizontal" enctype="multipart/form-data">
+                        <div class="card-body">
+                            <input id="Id" type="hidden" Name="Id" class="form-control" value="@Model.Id">
+                            <input id="tenancyName" type="hidden" Name="TenancyName" class="form-control" value="@Model.TenancyName">
+                            <input id="name" type="hidden" Name="Name" class="form-control" value="@Model.Name">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>@L("Address")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" value="@Model.Address1" name="Address1" id="Address1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("Address")2</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="Address2" value="@Model.Address2" id="Address2">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("City")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-city"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="City" value="@Model.City" id="City">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("State")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="State" value="@Model.State" id="State">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("Pincode")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-map-pin"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="Pincode" value="@Model.PinCode" id="Pincode">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@L("Country")</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-flag"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" name="Country" value="@Model.Country" id="Country">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="logoFile">Upload Logo</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="LogoFile" id="logoFile">
+                                                <label class="custom-file-label" for="logoFile">Choose File</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary float-right save-button">@L("Save")</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
