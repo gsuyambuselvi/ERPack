@@ -16,6 +16,11 @@
         }
     });
     var _estimateService = abp.services.app.estimate;
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
     function estimateTblList() {
         _$table = $('#EstimatesTable');
         _$estimatesTable = _$table.DataTable({
@@ -26,11 +31,13 @@
             listAction: {
                 ajaxFunction: _estimateService.getAll,
             },
+            dom: '<"top d-flex justify-content-between flex-row-reverse align-items-center"f>rt<"bottom border-top pt-2  d-flex justify-content-between"i l p><"clear">',  
+            pagingType: "full_numbers",
             buttons: [
                 {
                     name: 'refresh',
-                    className: 'refresh-btn',
-                    text: '<i class="fas fa-redo-alt"></i>',
+                   className: 'btn btn-light',
+                    text: '<i class="fas fa-redo-alt fa-lg"></i>',
                     action: () => _$estimatesTable.draw(false)
                 }
 
@@ -48,12 +55,11 @@
                     orderable: false,
                     searchable: false,
                     defaultContent: '<input type="checkbox" tblId="EstimatesTable" class="chkFile select-checkbox">'
-
                 },
                 {
                     targets: 1,
                     className: 'dt-control',
-                    defaultContent: '',
+                    defaultContent: '<i class="fas fa-angle-down fa-sm" style="color: #7a7a7a;"></i>',
                     sortable: false,
                 },
                 {
@@ -82,15 +88,21 @@
                     autoWidth: false,
                     defaultContent: '',
                     render: (data, type, row, meta) => {
-                        return ` <button type="button" class="btn btn-sm bg-secondary edit-estimate" data-estimate-id="${row.id}">
-                            <i class="fas fa-pencil-alt"></i>
-                            </button>`
+                        return `<a class="edit-estimate" data-estimate-id="${row.id}" data-toggle="tooltip" data-placement="top" title="Edit">
+                                 <i class="fas fa-edit fa-lg"></i>
+                                 </a>`;
                     }
                 }
             ]
         });
+      
+        // Reinitialize tooltips after each draw
+        _$estimatesTable.on('draw.dt', function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     }
 
+ 
     function enquiryTBlList() {
         var _enquiryService = abp.services.app.design;
         _$enquiryTable = $('#EnquiryTable').DataTable({
@@ -102,11 +114,15 @@
                 ajaxFunction: _enquiryService.getCompletedDesigns,
 
             },
+           
+            dom: '<"top d-flex justify-content-between flex-row-reverse align-items-center"f>rt<"bottom border-top pt-2  d-flex justify-content-between"ilp><"clear">', 
+            pagingType: "full_numbers",
             buttons: [
                 {
                     name: 'refresh',
-                    //className: 'refresh-btn',
-                    text: '<i class="fas fa-redo-alt"></i>',
+                    className: 'refresh-btn',    
+                    className: 'btn btn-light',
+                    text: '<i class="fas fa-redo-alt fa-lg"></i>',
                     action: () => _$enquiryTable.draw(false)
                 }
 
@@ -138,7 +154,7 @@
                     data: 'isHighPriority',
                     render: function (data) {
                         if (data === true) {
-                            return '<p class="blink_text">High Priority</p>';
+                            return '<span class="badge badge-pill badge-danger">High Priority</span>';
                         }
                         else {
                             return '';
@@ -160,13 +176,17 @@
                     width: '50px',
                     defaultContent: '',
                     render: (data, type, row, meta) => {
-                        return ` <a href="Estimate?designId=${row.id}" class="btn bg-blue float-sm-right" designId="${data.Id}">
-                    <i class="fas fa-plus"></i>                    
+                        return ` <a href="Estimate?designId=${row.id}" designId="${data.Id}"  data-toggle="tooltip" data-placement="top" title="New Estimate">
+                    <i class="fas fa-plus-circle fa-lg"></i>      
                     </a>`
                     }
                 }
             ]
 
+        });
+        // Reinitialize tooltips after each draw
+        _$enquiryTable.on('draw.dt', function () {
+            $('[data-toggle="tooltip"]').tooltip();
         });
     }
 
@@ -195,8 +215,8 @@
     });
     function format(row) {
         let estimateId = row.data().id;
-        let html = `<table id="EstimateTasksTable" class="table table-striped table-bordered nowrap">
-                                    <thead>
+        let html = `<table id="EstimateTasksTable" class="table table-sm border nowrap">
+                                    <thead  class="thead-light">
                                         <tr>
                                             <th>Material</th>
                                             <th>Quantity</th>
