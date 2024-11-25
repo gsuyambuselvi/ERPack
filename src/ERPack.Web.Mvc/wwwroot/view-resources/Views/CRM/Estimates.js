@@ -143,7 +143,7 @@
                 },
                 {
                     targets: 1,
-                    data: 'enquiryId'
+                    data: 'enquiryNumber'
                 },
                 {
                     targets: 2,

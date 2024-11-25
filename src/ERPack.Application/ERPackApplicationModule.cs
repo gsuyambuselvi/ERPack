@@ -84,6 +84,7 @@ namespace ERPack
                       .ForMember(u => u.SheetSizeWidth, options => options.MapFrom(input => input.Enquiry.SheetSizeWidth))
                       .ForMember(u => u.SheetSizeLength, options => options.MapFrom(input => input.Enquiry.SheetSizeLength))
                       .ForMember(u => u.EnquiryId, options => options.MapFrom(input => input.Enquiry.Id))
+                      .ForMember(u => u.IsHighPriority, options => options.MapFrom(input => input.Enquiry.IsHighPriority))
                       .ForMember(u => u.EnquiryNumber, options => options.MapFrom(input => input.Enquiry.EnquiryId));
 
                 config.CreateMap<DesignMaterial, DesignMaterialDto>()
