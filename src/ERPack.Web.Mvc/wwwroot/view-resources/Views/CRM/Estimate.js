@@ -245,7 +245,7 @@ function GetCustomerDetails(id) {
         $("#customerEmail").val(data.EmailAddress);
         $("#customerPhone").val(data.Mobile);
         $("#customerWebsite").val(data.Website);
-       
+
         $("#inpCustomerIdSpan").text(data.Id);
         $("#customerIdSpan").text(data.CustomerId);
         $("#taCustomersSpan").text(data.Name);
@@ -347,7 +347,7 @@ function CalculateTotalAmount() {
     $("#divCGST").text(iCGSTAmount);
     $("#divSGST").text(iSGSTAmount);
     $("#divIGST").text(iIGSTAmount);
-    $("#divTotalAmount").text(netAmount);
+    $("#divTotalAmount").text(netAmount.toFixed(2));
   }
 }
 

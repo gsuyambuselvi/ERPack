@@ -31,7 +31,7 @@
             listAction: {
                 ajaxFunction: _estimateService.getAll,
             },
-            dom: '<"top d-flex justify-content-between flex-row-reverse align-items-center"f>rt<"bottom border-top pt-2  d-flex justify-content-between"i l p><"clear">',  
+            dom: '<"top d-flex justify-content-between flex-row-reverse align-items-center"f>t<"bottom border-top pt-2  d-flex justify-content-between"i l p><"clear">',  
             pagingType: "full_numbers",
             buttons: [
                 {
@@ -47,7 +47,7 @@
                     type: 'column'
                 }
             },
-            order: [[1, 'asc']],
+            order: [[2, 'asc']],
             columnDefs: [
                 {
                     targets: 0,
@@ -59,7 +59,8 @@
                 {
                     targets: 1,
                     className: 'dt-control',
-                    defaultContent: '<i class="fas fa-angle-down fa-sm" style="color: #7a7a7a;"></i>',
+                    defaultContent: '',
+                    //defaultContent: '<i class="fas fa-angle-down fa-sm" style="color: #7a7a7a;"></i>',
                     sortable: false,
                 },
                 {
@@ -85,7 +86,7 @@
                     targets: 6,
                     data: null,
                     sortable: false,
-                    autoWidth: false,
+                    autoWidth: false,            
                     defaultContent: '',
                     render: (data, type, row, meta) => {
                         return `<a class="edit-estimate" data-estimate-id="${row.id}" data-toggle="tooltip" data-placement="top" title="Edit">
@@ -115,7 +116,7 @@
 
             },
            
-            dom: '<"top d-flex justify-content-between flex-row-reverse align-items-center"f>rt<"bottom border-top pt-2  d-flex justify-content-between"ilp><"clear">', 
+            dom: '<"top d-flex justify-content-between flex-row-reverse align-items-center"f>t<"bottom border-top pt-2  d-flex justify-content-between"ilp><"clear">',         
             pagingType: "full_numbers",
             buttons: [
                 {
@@ -154,7 +155,7 @@
                     data: 'isHighPriority',
                     render: function (data) {
                         if (data === true) {
-                            return '<span class="badge badge-pill badge-danger">High Priority</span>';
+                            return '<lable class="badge badge-danger font-weight-normal">High Priority</lable>';
                         }
                         else {
                             return '';
@@ -177,7 +178,7 @@
                     defaultContent: '',
                     render: (data, type, row, meta) => {
                         return ` <a href="Estimate?designId=${row.id}" designId="${data.Id}"  data-toggle="tooltip" data-placement="top" title="New Estimate">
-                    <i class="fas fa-plus-circle fa-lg"></i>      
+                    <i class="fas fa-plus-circle fa-sm"></i>      
                     </a>`
                     }
                 }
