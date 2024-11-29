@@ -8,11 +8,31 @@
     <environment names="Development">
         <script src="~/view-resources/Views/CRM/Estimates.js" asp-append-version="true"></script>
         <script src="~/common/helpers.js"></script>
+        <!-- DataTables Core -->
+        @* <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> *@
+        <!-- DataTables PDF Export -->
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+        <!-- JSZip (required for Excel export) -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+
     </environment>
 
     <environment names="Staging,Production">
         <script src="~/view-resources/Views/CRM/Estimates.min.js" asp-append-version="true"></script>
         <script src="~/common/helpers.min.js"></script>
+        <!-- DataTables PDF Export -->
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+        <!-- JSZip (required for Excel export) -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     </environment>
 }
 <section class="content-header">
@@ -46,13 +66,15 @@
                     </li>
                 </ul>
                 <div class="tab-content primary">
+                    <div class="col-md-6 text-right">
+                    </div>
                     <!-- Enquiry Tab -->
                     <div id="Enquiry" class="tab-pane fade show active border rounded-lg mt-3 p-2">
                         <div class="table-responsive">
                             <table id="EnquiryTable" class="table  table-lg nowrap">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th><input type="checkbox" id="selectEnq"></th>
+                                        <th><input type="checkbox" tblId="EnquiryTable" class="chkFile" id="selectEnq"></th>
                                         <th>@L("Enquiry") Id</th>
                                         <th>@L("Design") Id</th>
                                         <th>@L("HighPriority")</th>
@@ -65,13 +87,13 @@
                         </div>
                     </div>
 
-                    <!-- Estimate Tab --> 
+                    <!-- Estimate Tab -->
                     <div id="Estimate" class="tab-pane fade border rounded-lg mt-3 p-2">
                         <div class="table-responsive">
                             <table id="EstimatesTable" class="table table-lg nowrap">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th><input type="checkbox" id="selectEst"></th>
+                                        <th><input type="checkbox" tblId="EstimatesTable" class="chkFile" id="selectEst"></th>
                                         <th></th>
                                         <th>@L("Estimate") Id</th>
                                         <th>@L("Customer") @L("Name")</th>
