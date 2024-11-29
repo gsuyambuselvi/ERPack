@@ -1,0 +1,164 @@
+﻿@using ERPack.Web.Startup
+@using ERPack.Web.Models.CRM
+@model AddEditEstimateModel
+
+@{
+    ViewBag.Title = L("Estimate");
+    ViewBag.CurrentPageName = PageNames.CreateEstimate;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <form id="estimateCreateForm">
+            <input id="id" type="hidden" Name="Id" class="form-control" value="@Model.Id">
+
+            <!-- Estimate Details -->
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th colspan="4" class="text-center">Estimate Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Estimate ID</td>
+                        <td>@Model.EstimateId</td>
+                        <td>Description</td>
+                        <td>
+                             @Model.Description
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Design ID</td>
+                        <td>@Model.DesignId</td>
+                        <td>Package as Kit</td>
+                        <td>
+                            @(Model.IsKit ? "checked" : "Y")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Include Material</td>
+                        <td>
+                            @(Model.IsIncludeMaterial ? "checked" : "Y")
+                        </td>
+                        <td>Include Image</td>
+                        <td>
+                            <input type="checkbox" id="includeImage" name="includeImage" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <img id="designImage" src="Model.DesignImage" alt="Design Image" style="max-width: 100%; height: auto;" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Customer Details -->
+            <table class="table table-bordered mt-4">
+                <thead class="thead-light">
+                    <tr>
+                        <th colspan="4" class="text-center">Customer Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Design ID</td>
+                        <td>@Model.DesignId</td>
+                        <td>Customer Name</td>
+                        <td>@Model.CustomerName</td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>Not Found</td>
+                        <td>PAN</td>
+                        <td>@Model.pa</td>
+                    </tr>
+                    <tr>
+                        <td>GST No</td>
+                        <td>Model.CustomerGST</td>
+                        <td>Email</td>
+                        <td>Model.CustomerEmail</td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td>Model.CustomerPhone</td>
+                        <td>Website</td>
+                        <td>Model.CustomerWebsite</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Materials and Tasks -->
+            <table class="table table-bordered mt-4">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Materials</th>
+                        <th>Item Code</th>
+                        <th>Unit</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>HSN Code</th>
+                        <th>Discount%</th>
+                        <th>CGST%</th>
+                        <th>SGST%</th>
+                        <th>IGST%</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Materials != null)
+                    {
+                        for (var i = 0; i < Model.Materials.Count; i++)
+                        {
+                            <tr>
+                                <td>@Model.Materials[i].DisplayName</td>
+                                <td>@Model.Materials[i].ItemCode</td>
+                                <td>Model.Materials[i].UnitName</td>
+                                <td>Model.Materials[i].Quantity</td>
+                                <td>Model.Materials[i].Price</td>
+                                <td>Model.Materials[i].HSNCode</td>
+                                <td>Model.Materials[i].Discount</td>
+                                <td>@Model.Materials[i].CGST</td>
+                                <td>@Model.Materials[i].SGST</td>
+                                <td>@Model.Materials[i].IGST</td>
+                                <td>Model.Materials[i].Amount</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <!-- Total Calculation -->
+            <table class="table table-bordered mt-4">
+                <thead class="thead-light">
+                    <tr>
+                        <th colspan="2" class="text-center">Price Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gross Amount</td>
+                        <td>@Model.GrossAmount</td>
+                    </tr>
+                    <tr>
+                        <td>CGST</td>
+                        <td>Model.CGST</td>
+                    </tr>
+                    <tr>
+                        <td>SGST</td>
+                        <td>Model.SGST</td>
+                    </tr>
+                    <tr>
+                        <td>IGST</td>
+                        <td>Model.IGST</td>
+                    </tr>
+                    <tr>
+                        <td><b>Total</b></td>
+                        <td><b>Model.TotalAmount</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</section>

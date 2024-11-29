@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <AssemblyName>ERPack.Web.Mvc</AssemblyName>
     <OutputType>Exe</OutputType>
@@ -41,6 +41,9 @@
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="FreeSpire.Doc" Version="12.2.0" />
+    <PackageReference Include="itext7" Version="8.0.2" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.2" />
+    <PackageReference Include="itext7.pdfhtml" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.12">
       <PrivateAssets>all</PrivateAssets>
@@ -59,6 +62,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Shared\PDF\" />
     <Folder Include="wwwroot\uploads\Enquiry\" />
   </ItemGroup>
 </Project>

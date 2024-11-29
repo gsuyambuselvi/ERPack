@@ -13,6 +13,7 @@ using ERPack.Helpers;
 using ERPack.Materials;
 using ERPack.Sessions;
 using ERPack.Shared;
+using ERPack.Web.Helpers;
 using ERPack.Web.Models.CRM;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -269,6 +270,56 @@ namespace ERPack.Web.Controllers
             FileContentResult fileContentResult =
                     File(workorderPdf, "application/pdf");
             return fileContentResult;
+        }
+
+        [AbpMvcAuthorize(PermissionNames.Pages_CRM)]
+        [HttpGet]
+        public async Task<IActionResult> PdfEstimatev2(long estimateId)
+        {
+            AddEditEstimateModel estimateModel = new AddEditEstimateModel();
+            if (estimateId != 0)
+            {
+                EstimateDto estimateDto = await _estimateAppService.GetAsync(estimateId);
+                estimateModel = ObjectMapper.Map<AddEditEstimateModel>(estimateDto);
+            }
+
+            estimateModel.CompletedDesigns = await _designAppService.GetAllCompletedDesignsAsync();
+            estimateModel.Materials = await _materialAppService.GetAllMaterialsAsync();
+            estimateModel.Units = await _unitAppService.GetUnitsAsync();
+
+            return await PdfGenerator.GenerateAndDownloadPdf(
+              controller: this,
+              viewName: "_EstimationPDF",
+              model: estimateModel,
+              fileName: $"Estimation_Info_{estimateModel.CustomerName}_{DateTime.Now.ToString("yyyyMMdd_hhmmss")}.pdf"
+          );
+
+
+        }
+
+        [AbpMvcAuthorize(PermissionNames.Pages_CRM)]
+        [HttpGet]
+        public async Task<IActionResult> PdfEstimateV1(long estimateId)
+        {
+            AddEditEstimateModel estimateModel = new AddEditEstimateModel();
+            if (estimateId != 0)
+            {
+                EstimateDto estimateDto = await _estimateAppService.GetAsync(estimateId);
+                estimateModel = ObjectMapper.Map<AddEditEstimateModel>(estimateDto);
+            }
+
+            estimateModel.CompletedDesigns = await _designAppService.GetAllCompletedDesignsAsync();
+            estimateModel.Materials = await _materialAppService.GetAllMaterialsAsync();
+            estimateModel.Units = await _unitAppService.GetUnitsAsync();
+
+            return await PdfGenerator.GenerateAndDownloadPdf(
+              controller: this,
+              viewName: "_EstimationPDF_BKP",
+              model: estimateModel,
+              fileName: $"Estimation_Info_{estimateModel.CustomerName}_{DateTime.Now.ToString("yyyyMMdd_hhmmss")}.pdf"
+          );
+
+
         }
 
         [HttpGet]

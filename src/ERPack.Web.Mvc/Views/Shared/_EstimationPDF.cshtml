@@ -1,0 +1,116 @@
+﻿@using ERPack.Web.Startup
+@using ERPack.Web.Models.CRM
+@model AddEditEstimateModel
+ 
+@{
+    Layout = "~/Views/Shared/Layout/_PrintLayout.cshtml";
+    ViewBag.Title = L("Estimate");
+    ViewBag.CurrentPageName = PageNames.CreateEstimate;
+}
+<div class="container">
+    <!-- Header Section -->
+    <div class="header">
+        <div class="company-details">
+            <p><strong>Your Company Name</strong></p>
+            <p>123 Street Address</p>
+            <p>City, State, Zip Code</p>
+            <p>Phone Number, Email</p>
+        </div>
+        <div class="company-logo">
+            <img src="logo.png" alt="Company Logo">
+        </div>
+    </div>
+
+    <!-- Title -->
+    <div class="title">Estimation: @Model.EstimateId</div>
+
+    <!-- Bill To and Ship To Section -->
+    <div class="section">
+        <table class="table">
+            <tr>
+                <th>BILL TO</th>
+                <th>SHIP TO</th>
+            </tr>
+            <tr>
+                <td>
+                    <p><strong>Contact Name</strong></p>
+                    <p>Client Company Name</p>
+                    <p>Address</p>
+                    <p>Phone</p>
+                </td>
+                <td>
+                    <p><strong>Name / Dept</strong></p>
+                    <p>Client Company Name</p>
+                    <p>Address</p>
+                    <p>Phone</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Item Details Section -->
+    <div class="section">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Item Description</td>
+                    <td>1</td>
+                    <td>XX</td>
+                    <td>XX</td>
+                </tr>
+                <tr>
+                    <td>Item Description</td>
+                    <td>2</td>
+                    <td>XX</td>
+                    <td>XX</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Remarks Section -->
+    <div class="section">
+        <p><strong>Remarks / Payment Instructions:</strong></p>
+        <p>Enter any additional instructions or notes here.</p>
+    </div>
+
+    <!-- Total Calculation Section -->
+    <div class="section">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="totals">Subtotal</td>
+                    <td class="totals">XX</td>
+                </tr>
+                <tr>
+                    <td class="totals">Discount</td>
+                    <td class="totals">XX</td>
+                </tr>
+                <tr>
+                    <td class="totals">Tax Rate</td>
+                    <td class="totals">XX</td>
+                </tr>
+                <tr>
+                    <td class="totals">Total Tax</td>
+                    <td class="totals">XX</td>
+                </tr>
+                <tr>
+                    <td class="totals">Shipping / Handling</td>
+                    <td class="totals">XX</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Balance Section -->
+    <div class="balance">
+        Balance Due: XX
+    </div>
