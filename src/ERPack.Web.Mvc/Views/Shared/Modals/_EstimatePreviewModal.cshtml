@@ -5,10 +5,12 @@
 @{
     Layout = null;
 }
-<div class="modal fade" id="EstimatePreviewModal" tabindex="-1" role="dialog" aria-labelledby="EstimatePreviewModal" data-backdrop="static">
+<div class="modal fade" id="EstimatePreviewModal" tabindex="-1" role="dialog" aria-labelledby="EstimatePreviewModal"
+    data-backdrop="static">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("EstimatePreview")))
+            @await Html.PartialAsync("~/Views/Shared/Modals/_ModalHeader.cshtml", new
+                     ModalHeaderViewModel(L("EstimatePreview")))
             <div class="modal-body">
                 <div class="row ps-4 mb-2">
                     <div class="col-md-6">
@@ -32,16 +34,16 @@
 
                         </div>
                         <div class="row">
-                            
+
                         </div>
                         <div class="row">
-                            
+
                         </div>
                         <div class="row">
-                            
+
                         </div>
                         <div class="row">
-                            
+
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -62,7 +64,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="row ps-4" id="divPrevSubject" style="font-weight:700;text-align:left; word-break: break-all;"></div>
+                <div class="row ps-4" id="divPrevSubject"
+                    style="font-weight:700;text-align:left; word-break: break-all;"></div>
 
                 <div class="row ps-4">
                     <table class="table table-sm">
@@ -83,58 +86,59 @@
                 </div>
 
                 <div class="col-md-3">
-                <div class="input-group">
-                    <img id="previewImage" src="" name="image" class="img-fluid mx-auto" style="height:100px;width:100px;display:none;" />
+                    <div class="input-group">
+                        <img id="previewImage" src="" name="image" class="img-fluid mx-auto"
+                            style="height:100px;width:100px;display:none;" />
+                    </div>
                 </div>
-            </div>
 
-            <div class="row text-right mb-2" style="text-align:right;">
-                <div class="col-md-11">
-                    <div class="row">
-                        <div class="col-11" style="font-weight:700;text-align:right;">
-                            Gross Amount :
+                <div class="row text-right mb-2" style="text-align:right;">
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="col-11" style="font-weight:700;text-align:right;">
+                                Gross Amount :
+                            </div>
+                            <div id="divPrevGrossAmount" class="col-1" style="font-weight:700;text-align:right;">
+                                0.0 INR
+                            </div>
                         </div>
-                        <div id="divPrevGrossAmount" class="col-1" style="font-weight:700;text-align:right;">
-                            0.0 INR
+                        <div class="row">
+                            <div class="col-11">
+                                CGST :
+                            </div>
+                            <div id="divPrevCGST" class="col-1">
+                                0.0 INR
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-11">
-                            CGST :
-                        </div>
-                        <div id="divPrevCGST" class="col-1">
-                            0.0 INR
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-11">
-                            SGST :
+                        <div class="row">
+                            <div class="col-11">
+                                SGST :
+                            </div>
+                            <div id="divPrevSGST" class="col-1">
+                                0.0 INR
+                            </div>
                         </div>
-                        <div id="divPrevSGST" class="col-1">
-                            0.0 INR
+                        <div class="row">
+                            <div class="col-11">
+                                IGST :
+                            </div>
+                            <div id="divPrevIGST" class="col-1">
+                                0.0 INR
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-11">
-                            IGST :
-                        </div>
-                        <div id="divPrevIGST" class="col-1">
-                            0.0 INR
-                        </div>
-                    </div>
 
-                    <div class="row" style="font-weight:700;text-align:right;">
-                        <div class="col-11">
-                            Total :
+                        <div class="row" style="font-weight:700;text-align:right;">
+                            <div class="col-11">
+                                Total :
+                            </div>
+                            <div id="divPrevTotalAmount" class="col-1" style="font-weight:700;text-align:right;">
+                                0.0 INR
+                            </div>
                         </div>
-                        <div id="divPrevTotalAmount" class="col-1" style="font-weight:700;text-align:right;">
-                            0.0 INR
-                        </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>

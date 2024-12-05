@@ -36,11 +36,11 @@
                             <div class="p-3 d-flex flex-column border rounded-lg h-100">
                                 <div class="row">
                                     <div class="col-md-7">
-                                   
+
                                         <!-- Estimate ID -->
                                         <div class="form-group col-lg-9">
                                             <label for="EstimateId">Estimate ID</label>
-                                            <div class="input-group mb-3">                                             
+                                            <div class="input-group mb-3">
                                                 <input type="text" class="form-control" id="EstimateId"
                                                     value="@Model.EstimateId" name="EstimateId" required readonly>
                                             </div>
@@ -49,7 +49,7 @@
                                         <!-- Description -->
                                         <div class="form-group col-lg-9">
                                             <label for="Description">Description</label>
-                                            <div class="input-group mb-3">                                              
+                                            <div class="input-group mb-3">
                                                 <textarea type="text" class="form-control" id="Description"
                                                     name="Description" value="@Model.Description" required></textarea>
                                             </div>
@@ -72,7 +72,7 @@
                                                     value="@Model.DesignId" required readonly>
                                             </div>
                                         </div>
-                                       
+
                                         <!-- Checkboxes -->
                                         <div class="form-group row">
                                             <div class="col-sm-12" style="padding-left: 20px;">
@@ -102,10 +102,10 @@
                                     <!-- Image Preview Control -->
                                     <div class="col-lg-5 image-container">
                                         <div class="form-group ">
-                                            <div class="file">                                           
+                                            <div class="file">
                                                 <div class="d-flex justify-content-between align-items-center"
                                                     style="margin-bottom: 30px;">
-                                                    <span style="font-weight: bold;">Design Image Viewer</span>                                                 
+                                                    <span style="font-weight: bold;">Design Image Viewer</span>
                                                 </div>
                                                 <div id="filePreview" class="border rounded mb-3">
                                                     <input type="hidden" id="hdnDesignImage" name="DesignImage" />
@@ -140,12 +140,13 @@
                                                 <div class="col-lg-2">
                                                     <div class="icon-buttons" id="icon-buttons">
                                                         <button type="button" id="magnify"
-                                                            class="btn btn-outline-primary btn-sm  mx-2" data-role="magnify"
-                                                            >
+                                                            class="btn btn-outline-primary btn-sm  mx-2"
+                                                            data-role="magnify">
                                                             <i class="fas fa-search"></i>
                                                         </button>
-                                                        <a id="downloadLink" class="btn btn-outline-primary btn-sm  ml-2"
-                                                           data-role="download-link" href="" download="">
+                                                        <a id="downloadLink"
+                                                            class="btn btn-outline-primary btn-sm  ml-2"
+                                                            data-role="download-link" href="" download="">
                                                             <i class="fas fa-download"></i>
                                                         </a>
 
@@ -167,8 +168,8 @@
                                         <div class="col d-flex">
                                             <label for="customerId" class="col-sm-4  col-md-6 col-form-label"
                                                 style="font-size: 16px; font-weight: normal;">Customer Id</label>
-                                            <div class="col-sm-6 mt-2">                                               
-                                                <span id="customerIdSpan" style="font-weight: 600;"></span>                                         
+                                            <div class="col-sm-6 mt-2">
+                                                <span id="customerIdSpan" style="font-weight: 600;"></span>
                                                 <span id="inpCustomerIdSpan" style="font-weight: 600;"></span>
                                             </div>
                                         </div>
@@ -179,7 +180,7 @@
                                         <div class="col d-flex">
                                             <label for="customerName" class="col-sm-4  col-md-6 col-form-label"
                                                 style="font-size: 16px; font-weight: normal;">Customer Name</label>
-                                            <div class="col-sm-6 mt-2">                                             
+                                            <div class="col-sm-6 mt-2">
                                                 <span id="customerNameSpan" style="font-weight: 600;"></span>
                                             </div>
                                         </div>
@@ -190,7 +191,7 @@
                                         <div class="col d-flex ">
                                             <label for="customerAddress" class="col-sm-4  col-md-6 col-form-label"
                                                 style="font-size: 16px; font-weight: normal;">@L("Address")</label>
-                                            <div class="col-sm-6 mt-2">                                         
+                                            <div class="col-sm-6 mt-2">
                                                 <span id="customerAddressSpan" style="font-weight: 600;"></span>
                                             </div>
                                         </div>
@@ -202,7 +203,7 @@
                                             <label for="customerPAN" class="col-sm-4 col-md-6 col-form-label"
                                                 style="font-size: 16px; font-weight: normal;">@L("PAN")</label>
                                             <div class="col-sm-6 mt-2">
-                                                 <span id="customerPANSpan" style="font-weight: 600;"></span> 
+                                                <span id="customerPANSpan" style="font-weight: 600;"></span>
                                             </div>
                                         </div>
 
@@ -227,10 +228,10 @@
                                     <div class="row">
                                         <div class="col d-flex align-items-center">
                                             <label for="customerEmail" class="col-sm-4 col-md-6 col-form-label"
-                                                   style="font-size: 16px; font-weight: normal;">@L("Email")</label>
+                                                style="font-size: 16px; font-weight: normal;">@L("Email")</label>
                                             <div class="col-sm-6 mt-2 " style="display: flex; align-items: end;">
                                                 <span id="customerEmailSpan"
-                                                      style="font-weight: 600; color: #007BFF; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%;"></span>
+                                                    style="font-weight: 600; color: #007BFF; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%;"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -239,7 +240,7 @@
                                         <div class="col d-flex">
                                             <label for="customerPhone" class="col-sm-4 col-md-6 col-form-label"
                                                 style="font-size: 16px; font-weight: normal;">@L("Phone")</label>
-                                            <div class="col-sm-8 mt-2">                                        
+                                            <div class="col-sm-8 mt-2">
                                                 <span id="customerPhoneSpan" style="font-weight: 600;"></span>
                                             </div>
                                         </div>
@@ -250,13 +251,14 @@
                                             <label for="customerWebsite" class="col-sm-4 col-md-6 col-form-label"
                                                 style="font-size: 16px; font-weight: normal;">@L("Website")</label>
                                             <div class="col-sm-8 mt-2">
-                                                <span id="customerWebsiteSpan" style="font-weight: 600; color: #007BFF;"></span>
+                                                <span id="customerWebsiteSpan"
+                                                    style="font-weight: 600; color: #007BFF;"></span>
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
-                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                <script src="~/libs/jquery/jquery.js"></script>
                                 <script>
                                     $(document).ready(function () {
                                         // Wait for a short delay to allow data to load
@@ -279,7 +281,6 @@
                                         }, 500); // Adjust delay (in ms) based on data loading time
                                     });
                                 </script>
-
                             </div>
                         </div>
                     </div>
@@ -312,13 +313,15 @@
                                         <tr id="taskRow">
                                             <td>
                                                 <select class="form-control" id="materialName0"
-                                                        onchange="fnFillMaterialInfo(this)">
-                                                    <option value="" selected>Select @L("Material")</option>
+                                                    onchange="fnFillMaterialInfo(this)">
+                                                    <option value="" selected>Select
+                                                        @L("Material")</option>
                                                     @if (Model != null && Model.Materials != null)
                                                     {
                                                         @foreach (var v in Model.Materials)
                                                         {
-                                                            <option value="@v.Id">@v.DisplayName</option>
+                                                            <option value="@v.Id">
+                                                                @v.DisplayName</option>
                                                         }
                                                     }
                                                 </select>
@@ -330,7 +333,7 @@
                                             </td>
                                             <td>
                                                 <input type="hidden" id="unitId0">
-                                                <select class="form-control" id="unitName0" >
+                                                <select class="form-control" id="unitName0">
                                                     <option value="" selected>Select @L("Unit")</option>
                                                     @if (Model != null && Model.Units != null)
                                                     {
